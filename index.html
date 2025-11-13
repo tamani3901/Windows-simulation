@@ -6,12 +6,11 @@
 <title>Web Windows — 最終統合版 (IndexedDB & 音楽プレーヤー)</title>
 <style>
     /* CSSは省略（前回と同じ） */
-    :root { --taskbar-h: 40px;
---accent:#0078d7; --task-bg: rgba(32,32,32,0.92); }
+    :root { --taskbar-h: 40px; --accent:#0078d7; --task-bg: rgba(32,32,32,0.92); }
     html,body{height:100%;width:100%;margin:0;padding:0;font-family:"Segoe UI",system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Helvetica Neue","Noto Sans JP",sans-serif;user-select:none;overflow:hidden;}
     body{
         background: url("https://upload.wikimedia.org/wikipedia/en/b/b3/Windows_10_default_wallpaper.png") center/cover no-repeat fixed;
-background-color:#0078d7;
+        background-color:#0078d7;
     }
 
     .desktop{position:absolute;inset:0;pointer-events:auto;}
@@ -33,8 +32,7 @@ background-color:#0078d7;
     #startMenu .item{padding:8px;border-radius:6px;cursor:pointer;display:flex;align-items:center;gap:8px;}
     #startMenu .item:hover{background:rgba(255,255,255,0.06);}
 
-    .window{position:absolute;background:#fff;border:1px solid #777;border-radius:6px;box-shadow:0 10px 30px 
-rgba(0,0,0,0.45);display:flex;flex-direction:column;overflow:hidden;min-width:220px;min-height:120px;z-index:10;resize:both;}
+    .window{position:absolute;background:#fff;border:1px solid #777;border-radius:6px;box-shadow:0 10px 30px rgba(0,0,0,0.45);display:flex;flex-direction:column;overflow:hidden;min-width:220px;min-height:120px;z-index:10;resize:both;}
     .title-bar{background:var(--accent);color:#fff;padding:6px 8px;display:flex;align-items:center;justify-content:space-between;cursor:move;font-weight:600;}
     .title-left{display:flex;align-items:center;gap:8px;}
     .title-btns button{background:transparent;border:none;color:#fff;cursor:pointer;font-size:14px;margin-left:6px;padding:4px 6px;border-radius:4px;width:30px;height:30px;line-height:1;}
@@ -44,17 +42,15 @@ rgba(0,0,0,0.45);display:flex;flex-direction:column;overflow:hidden;min-width:22
 
     /* explorer */
     .content-view{display:flex;flex-wrap:wrap;gap:12px;padding:10px 8px;overflow:auto;flex:1;}
-    .file-icon{text-align:center;width:90px;cursor:pointer;padding:6px;border-radius:6px;
-box-sizing: border-box; position: relative;}
+    .file-icon{text-align:center;width:90px;cursor:pointer;padding:6px;border-radius:6px;box-sizing: border-box; position: relative;}
     .file-icon:hover{background:rgba(0,0,0,0.1);}
     .file-icon img{width:56px;height:56px;margin-bottom:6px;display:block;margin-left:auto;margin-right:auto;object-fit:contain;}
-    .file-icon div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px;color:#222;
-max-width: 100%;}
+    .file-icon div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px;color:#222;max-width: 100%;}
     .file-delete-btn {
         position: absolute;
         top: 0px; 
         right: 0px;
-background: rgba(255, 0, 0, 0.7);
+        background: rgba(255, 0, 0, 0.7);
         color: white;
         border: none;
         border-radius: 50%;
@@ -62,12 +58,11 @@ background: rgba(255, 0, 0, 0.7);
         height: 18px;
         line-height: 1;
         font-size: 14px;
-cursor: pointer;
+        cursor: pointer;
         padding: 0;
         display: none;
     }
-    .file-icon:hover .file-delete-btn { display: block;
-}
+    .file-icon:hover .file-delete-btn { display: block; }
 
     /* notepad */
     .notepad-textarea{flex:1;width:100%;box-sizing:border-box;border:none;padding:8px;font-family:Consolas,monospace;font-size:13px;resize:none;outline:none;}
@@ -79,36 +74,36 @@ cursor: pointer;
     
     .tab-content{
         flex:1;
-min-height:0; position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none;
-}
+        min-height:0; position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none;
+    }
     .tab-content.active { 
         display: block !important;
-} 
+    } 
     iframe{width:100%;height:100%;border:none;display:block;}
 
     /* メディアビューア/音楽プレーヤー用スタイル */
     .media-viewer-content {
         flex: 1;
-display: flex; justify-content: center; align-items: center; background: #000; overflow: hidden;
-}
+        display: flex; justify-content: center; align-items: center; background: #000; overflow: hidden;
+    }
     .media-viewer-content img, .media-viewer-content video {
         max-width: 100%; max-height: 100%;
-object-fit: contain;
+        object-fit: contain;
     }
     .music-player-content {
         flex: 1; display: flex;
-flex-direction: column; justify-content: center; align-items: center; background: #222; color: #fff; padding: 20px;
-}
+        flex-direction: column; justify-content: center; align-items: center; background: #222; color: #fff; padding: 20px;
+    }
     .music-player-content audio {
         width: 100%; 
         max-width: 400px;
         margin-top: 20px;
-}
+    }
     .music-player-content h3 {
         word-break: break-all;
         text-align: center;
         max-width: 100%;
-padding: 0 10px;
+        padding: 0 10px;
         font-size: 16px;
     }
 
@@ -134,8 +129,7 @@ padding: 0 10px;
     </div>
 </div>
 
-<div 
-id="taskbar">
+<div id="taskbar">
     <div class="taskbar-left">
         <button id="start" title="スタート"></button>
         <div class="taskbar-apps" id="taskbar-apps"></div>
@@ -169,7 +163,6 @@ function getDbPromise() {
             request.onerror = (event) => {
                 console.error("IndexedDBエラー:", event.target.errorCode);
                 alert("データベースを開けませんでした。");
-             
                 reject(event.target.error);
             };
 
@@ -179,13 +172,12 @@ function getDbPromise() {
 
             request.onupgradeneeded = (event) => {
                 const db = event.target.result;
-      
                 if (!db.objectStoreNames.contains(STORE_NAME)) {
                     db.createObjectStore(STORE_NAME, { keyPath: "filename" });
                 }
             };
         });
-}
+    }
     return dbPromise;
 }
 
@@ -208,8 +200,7 @@ async function transaction(mode) {
 async function saveFileToIndexedDB(filename, content) {
     try {
         const { store, tx } = await transaction("readwrite");
-        const fileRecord = { filename, content, size: content.length * 2 };
-        // サイズは概算
+        const fileRecord = { filename, content, size: content.length * 2 }; // サイズは概算
         
         await new Promise((resolve, reject) => {
             const request = store.put(fileRecord);
@@ -236,8 +227,7 @@ async function saveFileToIndexedDB(filename, content) {
 /**
  * ファイルをIndexedDBから読み込む
  * @param {string} filename - ファイル名 (キー)
- * @returns {Promise<{filename: string, content: string, size: number} |
-null>} ファイルレコード
+ * @returns {Promise<{filename: string, content: string, size: number} | null>} ファイルレコード
  */
 async function getFileFromIndexedDB(filename) {
     try {
@@ -287,13 +277,11 @@ async function listAllFiles() {
             request.onsuccess = (event) => {
                 const cursor = event.target.result;
                 if (cursor) {
-           
                     files.push({ filename: cursor.value.filename, size: cursor.value.size || 0 });
                     cursor.continue();
                 } else {
                     resolve(files);
                 }
-          
             };
             request.onerror = (e) => reject(e.target.error);
         });
@@ -368,7 +356,6 @@ function createWindow({title='Window', contentHTML='', width=700, height=420, ic
                 <button class="minimize" title="最小化">—</button>
                 <button class="maximize" title="最大化">▢</button>
                 <button class="close" title="閉じる">✕</button>
-         
             </div>
         </div>
         <div class="content">${contentHTML}</div>
@@ -469,8 +456,7 @@ function registerWindowToTaskbar(id, title, iconUrl){
     el.title = title;
     el.onclick = () => {
         const obj = winRegistry[id];
-        if(!obj){ el.remove(); updateTaskbar(); return;
-        }
+        if(!obj){ el.remove(); updateTaskbar(); return; }
         const w = obj.win;
         if(w.style.display === 'none' || window.getComputedStyle(w).display === 'none'){
             w.style.display = 'flex';
@@ -496,16 +482,23 @@ function updateTaskbar(){
 }
 
 /* スタートメニュー (変更なし) */
-const startBtn = document.getElementById('start');
-const startMenu = document.getElementById('startMenu');
-startBtn.onclick = (e) => { 
-    startMenu.style.display = startMenu.style.display === 'block' ? 'none' : 'block'; 
-    e.stopPropagation(); 
+document.getElementById('start').onclick = () => {
+    const startMenu = document.getElementById('startMenu');
+    if(startMenu.style.display === 'none' || window.getComputedStyle(startMenu).display === 'none'){
+        startMenu.style.display = 'block';
+    } else {
+        startMenu.style.display = 'none';
+    }
 };
-document.body.addEventListener('click', () => { 
-    if(startMenu.style.display === 'block') startMenu.style.display = 'none';
+document.body.addEventListener('click', (e) => {
+    const startMenu = document.getElementById('startMenu');
+    if(startMenu.style.display !== 'none' && !document.getElementById('start').contains(e.target) && !startMenu.contains(e.target)){
+        startMenu.style.display = 'none';
+    }
 });
-/* 時計 (変更なし) */
+
+
+/* 時刻表示 (変更なし) */
 function updateClock(){
     const now = new Date();
     const hh = String(now.getHours()).padStart(2,'0');
@@ -514,54 +507,59 @@ function updateClock(){
 }
 setInterval(updateClock, 1000);
 updateClock();
+
 /* Webブラウザ (変更なし) */
 function launchBrowser(){
-    for(const id in winRegistry){ if(winRegistry[id].title === 'Webブラウザ'){ const obj = winRegistry[id]; obj.win.style.display='flex';
-        obj.win.style.zIndex = ++zIndexCounter; updateTaskbar(); return; } }
-    
+    for(const id in winRegistry){
+        if(winRegistry[id].title === 'Webブラウザ'){
+            const obj = winRegistry[id];
+            obj.win.style.display='flex';
+            obj.win.style.zIndex = ++zIndexCounter;
+            updateTaskbar();
+            return;
+        }
+    }
     const localId = winIdCounter + 1;
     const browserHTML = `
         <div style="display:flex;flex-direction:column;height:100%;">
             <div class="tab-container-bar"><div class="tab-bar" id="tabbar_${localId}"></div><button id="newtab_${localId}" style="margin-left:auto;padding:4px 8px;">＋ 新しいタブ</button></div>
             <div style="display:flex;gap:6px;padding:6px;background:#f0f0f0;border-bottom:1px solid #ccc;flex-shrink:0;">
-                <input id="url_${localId}" type="text" style="flex:1;padding:6px;border:1px solid #ccc;border-radius:4px;"
-value="https://example.com" placeholder="URLを入力してEnter">
+                <input id="url_${localId}" type="text" style="flex:1;padding:6px;border:1px solid #ccc;border-radius:4px;" value="https://example.com" placeholder="URLを入力してEnter">
                 <button id="gobtn_${localId}">開く</button>
             </div>
             <div id="iframes_${localId}" style="flex:1;overflow:hidden;min-height:0; position: relative;"></div>
         </div>
     `;
     const { id, win } = createWindow({title:'Webブラウザ', contentHTML:browserHTML, width:840, height:560, icon:'https://img.icons8.com/color/48/internet--v1.png'});
-    
     const tabbar = win.querySelector(`#tabbar_${localId}`);
     const iframes = win.querySelector(`#iframes_${localId}`);
     const urlInput = win.querySelector(`#url_${localId}`);
     const goBtn = win.querySelector(`#gobtn_${localId}`);
     const newTabBtn = win.querySelector(`#newtab_${localId}`);
-    let tabs = []; 
+    let tabs = [];
     let tabIndex = 0;
     let activeTabIdx = -1;
 
     function createTab(url, activate=true){
         const idx = tabIndex++;
-        const tabEl = document.createElement('div'); 
-        tabEl.className='tab'; 
+        const tabEl = document.createElement('div');
+        tabEl.className='tab';
         tabEl.innerHTML = `<span>${(url.replace(/^https?:\/\//,'').split('/')[0]||'新しいタブ')}</span> <span class="close-tab-btn" data-idx="${idx}" style="font-weight:bold;margin-left:4px;">✕</span>`;
         tabEl.dataset.idx = idx;
         
         const frame = document.createElement('iframe');
         frame.src = url;
-        frame.sandbox = "allow-same-origin allow-scripts allow-forms allow-downloads allow-modals allow-top-navigation-by-user"; 
-        
-        const tabWrap = document.createElement('div'); 
+        frame.sandbox = "allow-same-origin allow-scripts allow-forms allow-downloads allow-modals allow-top-navigation-by-user";
+
+        const tabWrap = document.createElement('div');
         tabWrap.className = 'tab-content';
         tabWrap.dataset.idx = idx;
         tabWrap.appendChild(frame);
 
         tabbar.appendChild(tabEl);
         iframes.appendChild(tabWrap);
-        
-        tabEl.querySelector('span').onclick = ()=> setActive(idx); 
+
+        tabEl.querySelector('span').onclick = ()=> setActive(idx);
         tabEl.querySelector('.close-tab-btn').addEventListener('click', (e) => closeTab(e, idx));
 
         tabs.push({idx, tabEl, tabWrap, url});
@@ -570,64 +568,76 @@ value="https://example.com" placeholder="URLを入力してEnter">
 
     function closeTab(e, idx){
         e.stopPropagation();
-        const tab = tabs.find(t=>t.idx===idx);
-        if(!tab) return;
-        
-        tab.tabEl.remove();
-        tab.tabWrap.remove();
-        tabs = tabs.filter(t=>t.idx!==idx);
-        if(tabs.length === 0){
-            win.remove(); delete winRegistry[id]; updateTaskbar(); return;
-        }
-        
-        if(activeTabIdx === idx){
-            setActive(tabs[tabs.length-1].idx);
+        const tab = tabs.find(t => t.idx === idx);
+        if(tab){
+            tab.tabEl.remove();
+            tab.tabWrap.remove();
+            tabs = tabs.filter(t => t.idx !== idx);
+            if(activeTabIdx === idx && tabs.length > 0){
+                setActive(tabs[tabs.length - 1].idx);
+            } else if (tabs.length === 0){
+                win.remove(); delete winRegistry[id]; updateTaskbar();
+                return;
+            }
         }
     }
 
     function setActive(idx){
         activeTabIdx = idx;
-        tabs.forEach(t=>{ 
-            const active = t.idx === idx; 
-            t.tabEl.classList.toggle('active', active); 
-            t.tabWrap.classList.toggle('active', active); 
-            if(active) urlInput.value = t.url; 
+        tabs.forEach(t => {
+            const isActive = t.idx === idx;
+            t.tabEl.classList.toggle('active', isActive);
+            t.tabWrap.classList.toggle('active', isActive);
+            if(isActive){
+                urlInput.value = t.url;
+            }
         });
     }
 
-    function navigate(){
-        let url = urlInput.value;
-        if(!url.startsWith('http')) url = 'https://' + url;
-        const active = tabs.find(t=>t.idx === activeTabIdx);
-        if(active){ 
-            active.url = url; 
-            active.tabWrap.querySelector('iframe').src = url;
-            active.tabEl.querySelector('span').textContent = url.replace(/^https?:\/\//,'').split('/')[0]; 
+    function navigate(url){
+        let fullUrl = url.trim();
+        if(!fullUrl.match(/^(https?|ftp):\/\//i)){
+            fullUrl = 'https://' + fullUrl;
+        }
+        
+        const activeTab = tabs.find(t => t.idx === activeTabIdx);
+        if(activeTab){
+            activeTab.url = fullUrl;
+            activeTab.tabWrap.querySelector('iframe').src = fullUrl;
+            activeTab.tabEl.querySelector('span').textContent = fullUrl.replace(/^https?:\/\//,'').split('/')[0]||'新しいタブ';
         }
     }
 
-    newTabBtn.onclick = ()=> createTab('https://example.com', true);
-    goBtn.onclick = navigate;
-    urlInput.addEventListener('keydown', (e) => { if(e.key === 'Enter') navigate(); });
-    
-    createTab('https://example.com', true);
+    urlInput.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter'){
+            navigate(urlInput.value);
+        }
+    });
+
+    goBtn.onclick = () => navigate(urlInput.value);
+    newTabBtn.onclick = () => createTab('about:blank');
+
+    // 初期タブ
+    createTab('about:blank', true);
+    win.style.zIndex = ++zIndexCounter;
+    updateTaskbar();
 }
 
 
-/* メディアビューア (画像/動画) - IndexedDB対応 (awaitでファイル内容を取得) */
+/* メディアビューア/音楽プレーヤー (変更なし) */
+
+/* メディアビューア - IndexedDB対応 (awaitでファイル内容を取得) */
 async function openMediaViewer(filename){
-    const fileRecord = await getFileFromIndexedDB(filename);
-    if (!fileRecord) { alert(`ファイル「${filename}」が見つかりませんでした。`); return; }
-    const dataUrl = fileRecord.content;
-    for(const id in winRegistry){
-        if(winRegistry[id].title === filename){
-            const obj = winRegistry[id];
-            obj.win.style.display='flex'; obj.win.style.zIndex = ++zIndexCounter; updateTaskbar(); return;
-        }
+    const fileRecord = await getFileFromIndexedDB(filename); //
+    if (!fileRecord) {
+        alert(`ファイル「${filename}」が見つかりませんでした。`);
+        return;
     }
+    const dataUrl = fileRecord.content;
+    const lowerFname = filename.toLowerCase();
 
     let mediaElement = '';
-    const isImage = dataUrl.startsWith('data:image/');
+    const isImage = dataUrl.startsWith('data:image/') || lowerFname.endsWith('.jpg') || lowerFname.endsWith('.jpeg') || lowerFname.endsWith('.png') || lowerFname.endsWith('.gif') || lowerFname.endsWith('.webp');
     const isVideo = dataUrl.startsWith('data:video/');
 
     if (isImage) {
@@ -651,18 +661,24 @@ async function openMediaViewer(filename){
 
 /* 音楽プレーヤー - IndexedDB対応 (awaitでファイル内容を取得) */
 async function openMediaPlayer(filename){
-    const fileRecord = await getFileFromIndexedDB(filename);
-    if (!fileRecord) { alert(`ファイル「${filename}」が見つかりませんでした。`); return; }
+    const fileRecord = await getFileFromIndexedDB(filename); //
+    if (!fileRecord) {
+        alert(`ファイル「${filename}」が見つかりませんでした。`);
+        return;
+    }
     const dataUrl = fileRecord.content;
     if (!dataUrl.startsWith('data:audio/')) {
         alert(`ファイル「${filename}」は音声ファイルとして認識できません。`);
         return;
     }
-
+    
     for(const id in winRegistry){
         if(winRegistry[id].title === filename){
             const obj = winRegistry[id];
-            obj.win.style.display='flex'; obj.win.style.zIndex = ++zIndexCounter; updateTaskbar(); return;
+            obj.win.style.display='flex';
+            obj.win.style.zIndex = ++zIndexCounter;
+            updateTaskbar();
+            return;
         }
     }
 
@@ -672,141 +688,134 @@ async function openMediaPlayer(filename){
             <h3>${filename}</h3>
             <audio controls autoplay loop>
                 <source src="${dataUrl}" type="${dataUrl.split(';')[0].replace('data:','')}">
-              
                 お使いのブラウザは音声ファイルをサポートしていません。
             </audio>
         </div>
     `;
     const { id, win } = createWindow({title: filename, contentHTML:html, width:500, height:280, icon:'https://img.icons8.com/fluency/48/music.png'});
-    win.dataset.app = 'media-player'; 
+    win.dataset.app = 'media-player';
     updateTaskbar();
 }
 
-
 /* エクスプローラー - IndexedDB対応 (非同期処理に書き換え) */
 function openExplorer(){
-    for(const id in winRegistry){ 
-        if(winRegistry[id].title === 'エクスプローラー'){ 
+    for(const id in winRegistry){
+        if(winRegistry[id].title === 'エクスプローラー'){
             const obj = winRegistry[id];
-            obj.win.style.display='flex'; 
-            obj.win.style.zIndex=++zIndexCounter; 
-            if(typeof obj.win.renderFiles === 'function') obj.win.renderFiles(); 
-            updateTaskbar(); 
-            return; 
-        } 
+            obj.win.style.display='flex';
+            obj.win.style.zIndex=++zIndexCounter;
+            if(typeof obj.win.renderFiles === 'function') obj.win.renderFiles(); // ファイルリストの再描画
+            updateTaskbar();
+            return;
+        }
     }
-    
+
     const localId = winIdCounter + 1;
     const html = `
         <div style="display:flex;flex-direction:column;height:100%;">
             <div style="display:flex;align-items:center;gap:8px;padding:6px;background:#f0f0f0;border-bottom:1px solid #ccc;flex-shrink:0;">
                 <strong>📁 ドキュメント</strong>
                 <button id="newtxt_${localId}">新しいメモ</button>
-                <input type="file" id="fileinput_${localId}" style="display:none;"
-                multiple accept="*/*">
+                <input type="file" id="fileinput_${localId}" style="display:none;" multiple accept="*/*">
                 <button id="uploadbtn_${localId}">⬆️ ファイルをアップロード</button>
-                <button id="formatbtn_${localId}" style="margin-left:auto; background:#f00; color:white; border:none; padding:6px 10px; border-radius:4px;">⚠️ すべて削除 (初期化)</button>
+                <button id="formatbtn_${localId}" style="margin-left:auto; background:#f00; color:white; border:none; padding: 4px 8px; border-radius: 4px;">🧹 全データ削除</button>
             </div>
-            <div class="content-view" id="filearea_${localId}" style="flex:1;overflow:auto;padding:10px;"></div>
-            <div style="padding:6px;background:#f0f0f0;border-top:1px solid #ccc;font-size:13px;flex-shrink:0;"
-            id="status_${localId}"></div>
+            <div id="fileArea_${localId}" class="content-view">
+                <div style="padding:24px;color:#666">ファイルを読み込み中...</div>
+            </div>
+            <div id="statusArea_${localId}" style="padding:4px 8px;font-size:12px;color:#666;border-top:1px solid #ccc;flex-shrink:0;"></div>
         </div>
     `;
-    const { id, win } = createWindow({title:'エクスプローラー', contentHTML:html, width:660, height:460, icon:'https://img.icons8.com/fluency/48/folder-invoices.png'});
-    const area = win.querySelector(`#filearea_${localId}`);
-    const status = win.querySelector(`#status_${localId}`);
-    const newBtn = win.querySelector(`#newtxt_${localId}`);
-    const uploadBtn = win.querySelector(`#uploadbtn_${localId}`); 
-    const fileInput = win.querySelector(`#fileinput_${localId}`); 
+
+    const { id, win } = createWindow({title:'エクスプローラー', contentHTML:html, width:750, height:500, icon:'https://img.icons8.com/fluency/48/folder-invoices.png'});
+    win.dataset.app = 'explorer';
+
+    const area = win.querySelector(`#fileArea_${localId}`);
+    const statusArea = win.querySelector(`#statusArea_${localId}`);
+    const uploadBtn = win.querySelector(`#uploadbtn_${localId}`);
+    const fileInput = win.querySelector(`#fileinput_${localId}`);
     const formatBtn = win.querySelector(`#formatbtn_${localId}`);
-    
+    const newTxtBtn = win.querySelector(`#newtxt_${localId}`);
+
     async function updateStatus(){
         const used = await getUsedStorageBytes();
-        const usedKB = Math.round(used/1024);
-        const usedMB = (used/1048576).toFixed(2);
-        const maxMB = (MAX_STORAGE_BYTES/1048576).toFixed(0);
-        status.textContent = `容量: ${usedKB}KB (${usedMB}MB) / ${maxMB}MB 概算使用中`;
-        status.style.color = used >= MAX_STORAGE_BYTES ? 'red' : (used >= MAX_STORAGE_BYTES*0.9 ? 'orange' : 'black');
+        const usedKB = (used / 1024).toFixed(2);
+        statusArea.textContent = `総ファイル数: ${area.querySelectorAll('.file-icon').length} / 使用容量概算: ${usedKB} KB`;
     }
 
-    async function renderFiles(){
-        area.innerHTML = '<div style="padding:24px;color:#666">読み込み中...</div>';
-        const allFiles = await listAllFiles();
-        area.innerHTML = ''; 
-        let count=0;
-        
-        // --- 🎨 拡張子対応リスト（ここが変更された部分） ---
-        const IMAGE_EXTS = ['.png', '.jpg', '.jpeg', '.gif', '.webp', '.heic', '.tiff', '.tif', '.bmp'];
-        const VIDEO_EXTS = ['.mp4', '.webm', '.mov', '.avi', '.mkv', '.flv'];
-        const AUDIO_EXTS = ['.mp3', '.wav', '.ogg', '.m4a', '.aac'];
-        const TEXT_EXTS  = ['.txt'];
-        // ----------------------------------------------------
+    // ファイルリストを描画する関数をウィンドウオブジェクトに追加
+    win.renderFiles = async function renderFiles(){
+        area.innerHTML = `<div style="padding:24px;color:#666">ファイルを読み込み中...</div>`;
+        const files = await listAllFiles(); //
+        area.innerHTML = '';
+        let count = 0;
 
-        for(const file of allFiles){
+        for(const file of files){
             const fname = file.filename;
-            count++;
-            let icon='https://img.icons8.com/fluency/48/file.png';
-            let clickAction = ()=> openNotepad(fname);
-
-            // ファイルタイプに応じてアイコンとアクションを設定 (ファイル名で判断)
             const lowerFname = fname.toLowerCase();
-            const dotIndex = lowerFname.lastIndexOf('.');
-            const ext = dotIndex !== -1 ? lowerFname.substring(dotIndex) : '';
+            let icon = 'https://img.icons8.com/fluency/48/file.png';
+            let clickAction = ()=> alert(`ファイル「${fname}」を開くには、対応するアプリが必要です。`);
 
-            if(TEXT_EXTS.includes(ext)){
-                icon='https://img.icons8.com/fluency/48/text-file.png';
+            if(lowerFname.endsWith('.txt')){
+                icon='https://img.icons8.com/fluency/48/note.png';
                 clickAction = ()=> openNotepad(fname);
-            } else if(IMAGE_EXTS.includes(ext)){
+            } else if(lowerFname.endsWith('.html') || lowerFname.endsWith('.htm')){
+                icon='https://img.icons8.com/fluency/48/html-5.png';
+                clickAction = ()=> launchBrowser(fname); // ブラウザで開く
+            } else if(lowerFname.endsWith('.jpg') || lowerFname.endsWith('.jpeg') || lowerFname.endsWith('.png') || lowerFname.endsWith('.gif') || lowerFname.endsWith('.webp')){
                 icon='https://img.icons8.com/fluency/48/picture.png';
+                // 画像ファイルの内容は表示時に取得する
                 clickAction = ()=> openMediaViewer(fname);
-            } else if(VIDEO_EXTS.includes(ext)){
-                 icon='https://img.icons8.com/fluency/48/video.png';
+            } else if(lowerFname.endsWith('.mp4') || lowerFname.endsWith('.webm')){
+                icon='https://img.icons8.com/fluency/48/video.png';
                 clickAction = ()=> openMediaViewer(fname);
-            } else if(AUDIO_EXTS.includes(ext)){
-                 icon='https://img.icons8.com/fluency/48/music.png';
+            } else if(lowerFname.endsWith('.mp3') || lowerFname.endsWith('.wav') || lowerFname.endsWith('.ogg')){
+                icon='https://img.icons8.com/fluency/48/music.png';
                 clickAction = ()=> openMediaPlayer(fname);
             }
-
             // アイコンのサムネイル表示は今回はスキップ (画像の場合もopenMediaViewerに任せる)
+            
             const iconElement = `<img src="${icon}" alt="${fname}">`;
-            const el = document.createElement('div'); 
+            const el = document.createElement('div');
             el.className='file-icon';
             el.title = fname;
-
             el.innerHTML = `${iconElement}<div>${fname}</div><button class="file-delete-btn" data-fname="${fname}">✕</button>`;
             el.onclick = clickAction;
+
             el.querySelector('.file-delete-btn').addEventListener('click', async (e) => {
                 e.stopPropagation();
                 const targetFname = e.target.dataset.fname;
                 if(confirm(`「${targetFname}」を削除してもいい？`)){
-                    const success = await deleteFileFromIndexedDB(targetFname);
-                    if(success) 
-                    {
+                    const success = await deleteFileFromIndexedDB(targetFname); //
+                    if(success) {
                         alert(`「${targetFname}」を削除したよ。`);
-                        renderFiles(); 
+                        renderFiles();
                     } else {
                         alert(`「${targetFname}」の削除に失敗しました。`);
                     }
                 }
             });
+
             area.appendChild(el);
+            count++;
         }
-        
         if(count===0) area.innerHTML = `<div style="padding:24px;color:#666">ここにファイルはありません。</div>`;
         await updateStatus();
     }
 
-    formatBtn.onclick = formatStorage; 
-    
+    formatBtn.onclick = formatStorage;
     uploadBtn.onclick = () => { fileInput.click(); };
     fileInput.onchange = async (e) => {
         if (e.target.files.length === 0) return;
+
         // ファイルの競合チェック
         const existingFiles = (await listAllFiles()).map(f => f.filename);
+        
         for (const file of e.target.files) {
             let filename = file.name;
             let counter = 1;
-            while(existingFiles.includes(filename)) { // 既存ファイル名と衝突しないようにリネーム
+            while(existingFiles.includes(filename)) {
+                // 既存ファイル名と衝突しないようにリネーム
                 const parts = file.name.split('.');
                 const ext = parts.pop();
                 const base = parts.join('.');
@@ -816,115 +825,169 @@ function openExplorer(){
             const reader = new FileReader();
             reader.onload = async () => {
                 const dataUrl = reader.result;
-                const success = await saveFileToIndexedDB(filename, dataUrl);
+                const success = await saveFileToIndexedDB(filename, dataUrl); //
+                if(success) existingFiles.push(filename); // 登録成功したらリストに追加
+                else alert(`ファイル「${filename}」のアップロードに失敗しました。`);
                 
-                if(success){
-                    alert(`「${filename}」をアップロードしました！`);
-                    existingFiles.push(filename); // リストに加える
+                // すべてのファイルが処理されたら再描画
+                if(Array.from(e.target.files).indexOf(file) === e.target.files.length - 1) {
                     renderFiles();
                 }
             };
-            reader.onerror = () => {
-                alert(`「${file.name}」の読み込み中にエラーが発生しました。`);
-            };
+            // Data URL形式でファイルを読み込む
+            // ファイルの種類に応じてreadAsDataURLまたはreadAsTextを使用するのが望ましいが、Data URLとして統一する
             reader.readAsDataURL(file); 
         }
-        fileInput.value = '';
+
+        e.target.value = null; // 同じファイルを続けて選択できるようにリセット
     };
-    
-    newBtn.onclick = ()=> openNotepad();
-    win.renderFiles = renderFiles; 
-    renderFiles();
+    newTxtBtn.onclick = () => openNotepad();
+
+    win.renderFiles(); // 初回描画
     updateTaskbar();
 }
 
-/* updateExplorerViews (非同期に対応) */
-function updateExplorerViews(){
-    document.querySelectorAll('.window').forEach(w => {
-        try{ 
-            if(w.title === 'エクスプローラー' && typeof w.renderFiles === 'function') w.renderFiles(); 
-        } catch(e){}
-    });
-}
+/* メモ帳 - IndexedDB対応 (文字化け対策を含む) */
+async function openNotepad(filename='無題.txt'){
+    const currentFilename = filename;
+    let fileRecord = null;
+    let isNewFile = currentFilename === '無題.txt';
 
-/* メモ帳 - IndexedDB対応 (非同期処理に書き換え) */
-async function openNotepad(initialFilename = "無題.txt"){
-    for(const id in winRegistry){
-        if(winRegistry[id].title === initialFilename || (initialFilename === '無題.txt' && winRegistry[id].title === 'メモ帳')){
-            const o = winRegistry[id];
-            o.win.style.display='flex'; o.win.style.zIndex = ++zIndexCounter; updateTaskbar(); return;
+    if(!isNewFile) {
+        fileRecord = await getFileFromIndexedDB(currentFilename); //
+        if(!fileRecord) {
+            alert(`ファイル「${currentFilename}」が見つかりませんでした。`);
+            return;
         }
+    } else {
+        // 新規ファイルの場合、ファイル名衝突がないかチェックし、あればリネーム
+        let tempName = '無題.txt';
+        let counter = 1;
+        while(await getFileFromIndexedDB(tempName)) {
+            tempName = `無題(${counter++}).txt`;
+        }
+        currentFilename = tempName;
     }
     
-    const localId = winIdCounter + 1;
-    let currentFilename = initialFilename;
+    for(const id in winRegistry){
+        if(winRegistry[id].title === currentFilename){
+            const obj = winRegistry[id];
+            obj.win.style.display='flex';
+            obj.win.style.zIndex=++zIndexCounter;
+            updateTaskbar();
+            return;
+        }
+    }
+
     const html = `
         <div style="display:flex;flex-direction:column;height:100%;">
-            <div style="display:flex;align-items:center;gap:8px;padding:6px;background:#f0f0f0;border-bottom:1px solid #ccc;flex-shrink:0;">
-                <button id="savebtn_${localId}">💾 保存</button>
-                <button id="delbtn_${localId}" style="margin-left:auto;background:#fdd;padding:6px;border-radius:6px;border:1px solid #f99;">🗑 削除</button>
+            <div style="display:flex;gap:6px;padding:4px 8px;background:#f0f0f0;border-bottom:1px solid #ccc;flex-shrink:0;">
+                <button id="savebtn">💾 保存</button>
+                <button id="delbtn" style="${isNewFile ? 'display:none;' : ''}">🗑️ 削除</button>
+                <div style="margin-left:auto; font-size:12px; line-height:30px;">ファイル名: ${currentFilename}</div>
             </div>
-            <textarea class="notepad-textarea" id="notearea_${localId}" placeholder="ここにメモを書いてね..."></textarea>
-   
-         </div>
+            <textarea id="notepad-textarea" class="notepad-textarea" placeholder="ここにテキストを入力..." disabled></textarea>
+        </div>
     `;
-    const { id, win } = createWindow({title: currentFilename === '無題.txt' ? 'メモ帳' : currentFilename, contentHTML:html, width:520, height:360, icon:'https://img.icons8.com/fluency/48/note.png'});
-    const textarea = win.querySelector(`#notearea_${localId}`);
-    const savebtn = win.querySelector(`#savebtn_${localId}`);
-    const delbtn = win.querySelector(`#delbtn_${localId}`);
+
+    const { id, win } = createWindow({title: currentFilename, contentHTML:html, width:600, height:400, icon:'https://img.icons8.com/fluency/48/note.png'});
+    win.dataset.app = 'notepad';
+
+    const textarea = win.querySelector('#notepad-textarea');
+    const savebtn = win.querySelector('#savebtn');
+    const delbtn = win.querySelector('#delbtn');
+
+    // ★ 修正箇所: 読み込み処理
     async function loadFile(){
-        if(currentFilename === '無題.txt') return;
+        if(isNewFile) {
+            textarea.value = '';
+            textarea.disabled = false;
+            savebtn.disabled = false;
+            return;
+        }
 
-        const fileRecord = await getFileFromIndexedDB(currentFilename);
-        if(fileRecord){
-            const data = fileRecord.content;
-            const isBinary = data.startsWith('data:image/') || data.startsWith('data:video/') || data.startsWith('data:audio/'); 
-            if(isBinary){
-                textarea.value = `[バイナリファイル: ${currentFilename}]\n\n※画像、動画、音声などのバイナリファイルは、メモ帳で内容を編集・表示することはできません。`;
-                textarea.disabled = true;
-                savebtn.disabled = true;
+        const data = fileRecord.content;
+        const isBinary = data.startsWith('data:image/') || data.startsWith('data:video/') || data.startsWith('data:audio/');
+        
+        if(isBinary){
+            textarea.value = `[バイナリファイル: ${currentFilename}]\n\n※画像、動画、音声などのバイナリファイルは、メモ帳で内容を編集・表示することはできません。`;
+            textarea.disabled = true;
+            savebtn.disabled = true;
+        } else {
+            let content = '';
+            const parts = data.split(',');
+            
+            if (parts.length === 2) {
+                if (parts[0].includes(';base64')) {
+                    // Base64形式の場合（新しい保存形式）
+                    content = base64DecodeUnicode(parts[1]);
+
+                } else {
+                    // パーセントエンコード形式（旧形式）の場合
+                    try {
+                        content = decodeURIComponent(parts[1]);
+                    } catch(e) {
+                        content = "【ファイルの内容を読み込めませんでした。文字コードが不正な可能性があります。】";
+                        console.warn("旧形式ファイルのデコードエラー:", e);
+                    }
+                }
             } else {
-                textarea.value = data;
-                textarea.disabled = false;
-                savebtn.disabled = false;
+                 content = "【ファイルの内容を読み込めませんでした。Data URLが不正です。】";
             }
+            
+            textarea.value = content;
+            textarea.disabled = false;
+            savebtn.disabled = false;
         }
     }
 
+    // ★ 修正箇所: 保存処理
     async function saveFile(){
-        if(textarea.disabled) { alert('このファイルは編集できません。');
-            return; }
-
-        let filename = prompt("ファイル名を入力してください（例: memo.txt）", currentFilename === '無題.txt' ? '' : currentFilename);
+        if(textarea.disabled) {
+            alert('このファイルは編集できません。');
+            return;
+        }
+        
+        let filename = prompt("ファイル名を入力してください（例: memo.txt）", currentFilename);
         if(!filename) return;
-        if(!filename.toLowerCase().endsWith('.txt')) filename += '.txt';
-        
-        const newText = textarea.value || '';
-        // Data URL形式に変換（テキストファイルなのでtext/plainのData URLを使う）
-        const dataUrl = `data:text/plain;charset=utf-8,${encodeURIComponent(newText)}`;
-        const success = await saveFileToIndexedDB(filename, dataUrl);
-        
-        if(success){
-            if(currentFilename !== '無題.txt' && filename !== currentFilename){
-                await deleteFileFromIndexedDB(currentFilename);
-            }
 
-            currentFilename = filename;
-            winRegistry[id].title = currentFilename;
-            win.querySelector('.title-left strong').textContent = winRegistry[id].title;
-            win.title = winRegistry[id].title;
-            updateExplorerViews();
-            alert(`「${filename}」を保存したよ！`);
-            updateTaskbar();
+        // 拡張子チェック
+        if(!filename.toLowerCase().endsWith('.txt')) filename += '.txt';
+
+        const newText = textarea.value || ''; 
+        
+        // Data URL形式に変換（文字化けを防ぐため、Unicode対応のBase64を使用）
+        const base64Content = base64EncodeUnicode(newText);
+        const dataUrl = `data:text/plain;charset=utf-8;base64,${base64Content}`;
+
+        // ファイル名を変更した場合は既存ファイルを削除する必要がある
+        if(!isNewFile && filename !== currentFilename) {
+            await deleteFileFromIndexedDB(currentFilename);
+        }
+
+        const success = await saveFileToIndexedDB(filename, dataUrl); //
+
+        if(success) {
+            alert(`「${filename}」を保存したよ。`);
+            // ファイル名が変わった場合、ウィンドウを閉じて新しいファイル名で開く
+            if(filename !== currentFilename) {
+                win.remove(); delete winRegistry[id];
+                openNotepad(filename);
+            } else {
+                // ファイル一覧を更新
+                updateExplorerViews();
+            }
         }
     }
-    
+
     async function deleteFile(){
-        if(currentFilename === '無題.txt'){ alert('無題のファイルは削除できないよ。');
-            return; }
+        if(currentFilename === '無題.txt'){
+            alert('無題のファイルは削除できないよ。');
+            return;
+        }
         if(!confirm(`「${currentFilename}」を削除してもいい？`)) return;
         
-        const success = await deleteFileFromIndexedDB(currentFilename);
+        const success = await deleteFileFromIndexedDB(currentFilename); //
         if(success) {
             alert(`「${currentFilename}」を削除したよ。`);
             win.remove();
@@ -935,13 +998,41 @@ async function openNotepad(initialFilename = "無題.txt"){
             alert(`「${currentFilename}」の削除に失敗しました。`);
         }
     }
+    
     savebtn.onclick = saveFile;
     delbtn.onclick = deleteFile;
     loadFile();
     updateTaskbar();
 }
 
+/* Base64 Unicode対応ヘルパー関数（文字化け対策） */
+function base64EncodeUnicode(str) {
+    // UTF-8バイト列に変換 -> バイナリ文字列 -> Base64
+    const utf8Bytes = new TextEncoder().encode(str);
+    const binString = String.fromCodePoint(...utf8Bytes);
+    return btoa(binString);
+}
+
+function base64DecodeUnicode(base64) {
+    try {
+        // Base64 -> バイナリ文字列 -> UTF-8バイト列から文字列にデコード
+        const binString = atob(base64);
+        const utf8Bytes = Uint8Array.from(binString, m => m.codePointAt(0));
+        return new TextDecoder().decode(utf8Bytes);
+    } catch (e) {
+        console.error("Base64デコードエラー:", e);
+        return ""; // デコード失敗時は空文字列を返す
+    }
+}
+
+
 /* 画面リサイズでウィンドウがはみ出さないように補正 (変更なし) */
+function updateExplorerViews(){
+    document.querySelectorAll('.window[data-app="explorer"]').forEach(w => {
+        if(typeof w.renderFiles === 'function') w.renderFiles();
+    });
+}
+
 window.addEventListener('resize', () => {
     document.querySelectorAll('.window').forEach(w => {
         const rect = w.getBoundingClientRect();
@@ -951,19 +1042,12 @@ window.addEventListener('resize', () => {
         if(changed) w.style.zIndex = ++zIndexCounter;
     });
 });
+
 /* 初期化: IndexedDBの準備 */
 getDbPromise().then(() => {
     console.log("IndexedDBの準備ができました。");
 }).catch(e => {
-    console.error("IndexedDBの初期化に失敗:", e);
-});
-
-/* 初期タスクバー更新 */
-updateTaskbar();
-/* デスクトップ右クリック（仮） */
-document.getElementById('desktopArea').addEventListener('contextmenu', e => {
-    e.preventDefault();
-    alert('右クリックメニュー：未実装。スタートからアプリ開いてね。');
+    console.error("初期化失敗:", e);
 });
 </script>
 </body>
