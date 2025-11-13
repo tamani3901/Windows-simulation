@@ -847,9 +847,10 @@ function openExplorer(){
     updateTaskbar();
 }
 
-/* メモ帳 - IndexedDB対応 (文字化け対策を含む) */
+/* メモ帳 - IndexedDB対応 (文字化け対策と起動バグ修正済み) */
 async function openNotepad(filename='無題.txt'){
-    const currentFilename = filename;
+    // ★ 修正箇所: currentFilename を let で宣言し、ファイル名衝突チェック後に更新できるようにする
+    let currentFilename = filename;
     let fileRecord = null;
     let isNewFile = currentFilename === '無題.txt';
 
@@ -866,9 +867,12 @@ async function openNotepad(filename='無題.txt'){
         while(await getFileFromIndexedDB(tempName)) {
             tempName = `無題(${counter++}).txt`;
         }
+        // 更新されたファイル名を currentFilename に代入
         currentFilename = tempName;
+        isNewFile = true;
     }
     
+    // 既存ウィンドウのチェック (更新された currentFilename を使用)
     for(const id in winRegistry){
         if(winRegistry[id].title === currentFilename){
             const obj = winRegistry[id];
@@ -897,7 +901,7 @@ async function openNotepad(filename='無題.txt'){
     const savebtn = win.querySelector('#savebtn');
     const delbtn = win.querySelector('#delbtn');
 
-    // ★ 修正箇所: 読み込み処理
+    // ★ 修正箇所: 読み込み処理 (文字化け対策適用済み)
     async function loadFile(){
         if(isNewFile) {
             textarea.value = '';
@@ -941,7 +945,7 @@ async function openNotepad(filename='無題.txt'){
         }
     }
 
-    // ★ 修正箇所: 保存処理
+    // ★ 修正箇所: 保存処理 (文字化け対策適用済み)
     async function saveFile(){
         if(textarea.disabled) {
             alert('このファイルは編集できません。');
